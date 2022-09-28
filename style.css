@@ -66,6 +66,10 @@ body {
   display: block;
 }
 
+.focus {
+  border: 2px solid var(--blue);
+}
+
 .validInput {
   border: 2px solid var(--blue);
 }
@@ -76,6 +80,10 @@ body {
 
 .validPsw {
   color: var(--blue);
+}
+
+.userNameWarning {
+  color: var(--black) !important;
 }
 
 /* custom classes */
@@ -156,6 +164,11 @@ body {
   padding: 0.5rem;
 }
 
+input:focus:not(input[type='checkbox']:focus) {
+  outline: 0;
+  /* border: 2px solid var(--blue); */
+}
+
 .err-msg:not(.err-password) {
   color: var(--red);
   font-size: var(--fs-secondary);
@@ -224,10 +237,11 @@ input[type='checkbox']:checked::after {
   font-weight: 500;
 }
 
-.form-controls input:focus,
-.form-controls input[type='checkbox']:focus,
+input[type='checkbox']:focus,
 a:focus {
-  outline-color: var(--blue);
+  outline: 0;
+  /* outline-color: var(--blue); */
+  border: 2px solid var(--blue);
 }
 
 .terms-agreements {
