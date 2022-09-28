@@ -13,16 +13,32 @@ const app = {
 
     email.addEventListener('change', app.test);
     email.addEventListener('invalid', app.error);
-    email.addEventListener('input', (e) => {
-      const errMsg = e.target.parentNode.lastElementChild;
-      email.classList.remove('notValidInput');
-      errMsg.classList.add('hidden');
-    });
+    email.addEventListener('input', app.emailInput);
 
-    userName.addEventListener('change', app.test);
+    userName.addEventListener('focus', app.userNameFocus);
+    userName.addEventListener('blur', app.userNameBlur);
     userName.addEventListener('invalid', app.error);
 
     form.addEventListener('submit', app.validate);
+  },
+
+  userNameFocus(e) {
+    const errMsg = e.target.parentNode.lastElementChild;
+    errMsg.classList.add('userNameWarning');
+    errMsg.classList.remove('hidden');
+  },
+
+  userNameBlur(e) {
+    const errMsg = e.target.parentNode.lastElementChild;
+    errMsg.classList.remove('userNameWarning');
+    errMsg.classList.add('hidden');
+  },
+
+  emailInput(e) {
+    const { email } = app;
+    const errMsg = e.target.parentNode.lastElementChild;
+    email.classList.remove('notValidInput');
+    errMsg.classList.add('hidden');
   },
 
   validate(e) {
@@ -61,10 +77,10 @@ const app = {
     errMsg.classList.remove('hidden');
 
     if (field.id === 'mail' && patternMismatch) {
-      errMsg.textContent = 'Not the correct email pattern';
+      errMsg.textContent = 'Your email is not valid.';
     }
-    if (field.id === 'userName' && patternMismatch) {
-      errMsg.textContent = 'Not the correct userName pattern';
+    if (field.id === 'userName' && valueMissing) {
+      errMsg.textContent = 'Please enter a value';
     }
 
     console.log(field.validity);
