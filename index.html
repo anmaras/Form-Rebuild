@@ -15,12 +15,13 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
     />
     <link rel="stylesheet" href="style.css" />
+    <script src="./script.js" defer></script>
     <title>Document</title>
   </head>
   <body>
     <aside class="aside-small"></aside>
-    <aside class="aside-img hidden">
-      <img src="./assets/asset4.png" alt="flowers drawing" />
+    <aside class="aside-img">
+      <!-- <img src="./assets/asset4.png" alt="flowers drawing" /> -->
     </aside>
     <header class="header">
       <div>
@@ -36,25 +37,48 @@
       </div>
     </header>
     <main class="main-container">
-      <div class="entry-error-container">
+      <div class="entry-error-container hidden">
         <p class="entry-error-msg">Please check your entry and try again.</p>
       </div>
       <article class="main-form-container">
         <h1 class="title">Sign up for Mailchimp</h1>
         <p class="create-account-text">
-          Create a free account or <span><a href="#">log in</a></span>
+          Create a free account or
+          <span
+            ><a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
+              >log in</a
+            ></span
+          >
         </p>
-        <form action="./fakeServer" method="post" class="form">
+        <form
+          action="#"
+          method="POST"
+          class="form"
+          name="form"
+          autocomplete="off"
+          novalidate
+        >
           <fieldset class="form-fieldset">
             <div class="form-controls">
               <label for="mail">Email</label>
-              <input type="email" id="mail" />
-              <p class="err-mail err-msg">Please enter a value</p>
+              <input
+                type="email"
+                id="mail"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"
+                required
+              />
+              <p class="err-mail err-msg hidden">Please enter a value</p>
             </div>
             <div class="form-controls">
-              <label for="text">Username</label>
-              <input type="text" id="text" />
-              <p class="err-text err-msg">Please enter a value</p>
+              <label for="userName">Username</label>
+              <input type="text" id="userName" required />
+              <p class="err-text err-msg suggestion hidden">
+                We recommend using your email as username. If you change it,
+                only letters and numbers are allowed.
+              </p>
+              <p class="err-mail err-msg hidden">Please enter a value</p>
+
             </div>
             <div class="form-controls">
               <p class="show-password">
@@ -62,8 +86,14 @@
                 >Show
               </p>
               <label for="password">Password</label>
-              <input type="text" id="password" />
-              <ul class="psw-error-list err-msg">
+              <input
+                type="text"
+                id="password"
+                max="50"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$"
+                required
+              />
+              <ul class="psw-error-list err-msg hidden">
                 <li class="lowercase-char">
                   <span class="material-symbols-outlined symbol"> close</span
                   >One lowercase character
@@ -84,7 +114,7 @@
                   <span class="material-symbols-outlined symbol"> close</span>8
                   characters minimum
                 </li>
-                <li class="max-chars">
+                <li class="max-chars hidden">
                   <span class="material-symbols-outlined symbol"> close</span>50
                   characters maximum
                 </li>
