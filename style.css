@@ -50,8 +50,9 @@ body {
   font-size: var(--fs-main);
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: min-content min-content 1fr min-content;
+  place-items: center;
 }
 
 /* utilities classes */
@@ -84,39 +85,26 @@ body {
   height: 8px;
 }
 
-@media (min-width: 400px) {
-  body {
-    flex-direction: row;
-  }
-
-  .aside-small {
-    width: 8px;
-    height: 100vh;
-    flex-shrink: 0;
-  }
-}
-
 .header {
   width: 100%;
   padding: 0.5rem;
-  margin-bottom: 2rem;
 }
 
 .header div {
   max-width: 40px;
 }
 
-.entry-error-container {
-  background-color: var(--pink);
+.main-container {
   width: 90%;
-  margin: auto;
-  padding: 1rem;
-  margin-bottom: 1.3rem;
+  /* margin: auto; */
+  max-width: 600px;
+  margin-block: 2rem;
 }
 
-.main-form-container {
-  width: 90%;
-  margin: auto;
+.entry-error-container {
+  background-color: var(--pink);
+  padding: 1rem;
+  margin-bottom: 1.3rem;
 }
 
 .title {
@@ -128,7 +116,7 @@ body {
 }
 
 .create-account-text {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .create-account-text span a {
@@ -136,16 +124,12 @@ body {
   text-decoration: none;
 }
 
-.form {
-  /* padding-inline: 0.5rem; */
-}
-
 .form-fieldset {
   border: 0;
 }
 
 .form-controls {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   position: relative;
 }
 
@@ -261,12 +245,43 @@ a:focus {
 }
 
 .footer {
-  margin-top: 4rem;
-  padding: 1rem;
+  padding-inline: 1rem;
+  margin-bottom: 1rem;
+  max-width: 600px;
 }
 
 .footer-text,
 .captcha-text {
   font-size: var(--fs-small);
   font-weight: 300;
+}
+
+@media (min-width: 640px) {
+  body {
+    grid-template-columns: 8px 1fr;
+    grid-template-rows: min-content 1fr min-content;
+  }
+  .aside-small {
+    width: 8px;
+    height: 100vh;
+
+    grid-row: 1/4;
+    grid-column: 1/2;
+  }
+
+  .header {
+    grid-row: 1/2;
+    grid-column: 2/-1;
+  }
+
+  .main {
+    grid-row: 2/3;
+    grid-column: 2/-1;
+  }
+
+  .footer {
+    grid-column: 2/-1;
+    margin-right: 13rem;
+    justify-self: left;
+  }
 }
