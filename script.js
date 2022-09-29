@@ -5,6 +5,7 @@ const app = {
   password: document.getElementById('password'),
   pswText: document.querySelector('.psw-text'),
   pswIcon: document.querySelector('.psw-eye'),
+  mainErrMsg: document.querySelector('.entry-error-container'),
 
   init() {
     app.addEventListener();
@@ -16,18 +17,18 @@ const app = {
     /* email */
     email.addEventListener('change', app.test);
     email.addEventListener('invalid', app.error);
+    email.addEventListener('input', app.removeError);
     email.addEventListener('focus', (e) => e.target.classList.add('focus'));
     email.addEventListener('blur', (e) => e.target.classList.remove('focus'));
-    email.addEventListener('input', app.removeError);
 
     /* userName */
     userName.addEventListener('change', app.test);
     userName.addEventListener('invalid', app.error);
+    userName.addEventListener('input', app.removeError);
     userName.addEventListener('focus', (e) => e.target.classList.add('focus'));
     userName.addEventListener('blur', (e) =>
       e.target.classList.remove('focus')
     );
-    userName.addEventListener('input', app.removeError);
 
     /* password */
     password.addEventListener('change', app.test);
@@ -47,33 +48,47 @@ const app = {
   },
 
   validate(e) {
-    const { email, userName, password } = app;
+    /* validate form on submit */
+    const { email, userName, password, mainErrMsg } = app;
 
-    if (!email.validity.valid) {
-      app.error(this, 'mail');
-      e.preventDefault();
-    }
-    if (!userName.validity.valid) {
-      app.error(this, 'userName');
-      e.preventDefault();
-    }
+    const arr = [
+      {
+        valid: email.validity.valid,
+        error() {
+          app.error(this, 'mail');
+        },
+      },
+      {
+        valid: userName.validity.valid,
+        error() {
+          app.error(this, 'userName');
+        },
+      },
+      {
+        valid: password.validity.valid,
+        error() {
+          app.error(this, 'password');
+        },
+      },
+    ];
 
-    if (!password.validity.valid) {
-      app.error(this, 'password');
-      e.preventDefault();
-    }
+    arr.forEach((obj) => {
+      if (!obj.valid) {
+        obj.error();
+        mainErrMsg.classList.remove('hidden');
+        e.preventDefault();
+      }
+    });
   },
 
   test(e) {
     const target = e.target;
     const errMsg = target.parentNode.lastElementChild;
-
     /* reset the validation object */
     target.setCustomValidity('');
-
     /* check the input attributes and return boolean  */
     const isValid = target.checkValidity();
-    console.log(isValid);
+
     if (isValid) {
       target.classList.remove('notValidInput');
       errMsg.classList.add('hidden');
@@ -93,10 +108,12 @@ const app = {
     if (field.id === 'mail' && patternMismatch) {
       errMsg.textContent = 'Your email is not valid.';
     }
+    if (field.id === 'mail' && valueMissing) {
+      errMsg.textContent = 'Please enter a value.';
+    }
 
     if (field.id === 'userName' && valueMissing) {
       errMsg.textContent = 'Please enter a value';
-      errMsg.classList.remove('hidden');
     }
 
     if (field.id === 'password') {
@@ -130,14 +147,14 @@ const app = {
   passwordVisible() {
     let { password, pswIcon, pswText } = app;
 
-    if (password.type === 'text') {
-      password.type = 'password';
-      pswIcon.textContent = 'visibility';
-      pswText.textContent = 'Show';
-    } else {
+    if (password.type === 'password') {
       password.type = 'text';
       pswIcon.textContent = 'visibility_off';
       pswText.textContent = 'Hide';
+    } else {
+      password.type = 'password';
+      pswIcon.textContent = 'visibility';
+      pswText.textContent = 'Show';
     }
   },
 
