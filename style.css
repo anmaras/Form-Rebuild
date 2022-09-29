@@ -2,6 +2,7 @@
   /* colors */
   --black: #241c15;
   --blue: #007c89;
+  --green: #008952;
   --red: #a73205;
   --bright-red: #ff4e08;
   --grey: #696969;
@@ -67,19 +68,26 @@ body {
 }
 
 .focus {
-  border: 2px solid var(--blue);
+  box-shadow: 0px 0px 0px 2px var(--blue);
+  transition: all 0.25s linear;
 }
 
 .validInput {
-  border: 2px solid var(--blue);
+  /* border: 2px solid var(--blue); */
+  box-shadow: 0px 0px 0px 2px var(--green);
+  transition: all 0.25s linear;
 }
 
 .notValidInput {
-  border: 2px solid var(--bright-red);
+  box-shadow: 0px 0px 0px 2px var(--bright-red);
+  transition: all 0.25s linear;
+
+  /* border: 2px solid var(--green); */
 }
 
 .validPsw {
   color: var(--blue);
+  transition: all 0.25s linear;
 }
 
 .userNameWarning {
@@ -159,14 +167,16 @@ body {
   font-weight: 600;
 }
 
-.form-controls input {
+input {
   width: 100%;
   padding: 0.5rem;
+  border: 0;
+  box-shadow: 0px 0px 0px 1px var(--light-grey);
+  border-radius: 2px;
 }
 
-input:focus:not(input[type='checkbox']:focus) {
+input:focus {
   outline: 0;
-  /* border: 2px solid var(--blue); */
 }
 
 .err-msg:not(.err-password) {
@@ -204,29 +214,28 @@ input:focus:not(input[type='checkbox']:focus) {
 .form-controls.checkbox {
   display: flex;
   align-items: flex-start;
-  gap: 0.6rem;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
 input[type='checkbox'] {
   appearance: none;
   padding: 0;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
   aspect-ratio: 1;
   border-radius: 2px;
-  border: thin solid var(--light-grey);
   display: grid;
   place-items: center;
 }
 
 input[type='checkbox']:checked {
   background-color: var(--blue);
-  border: 1px solid var(--black);
 }
 
 input[type='checkbox']:checked::after {
   content: '\2713';
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: bold;
   color: aliceblue;
 }
@@ -240,13 +249,12 @@ input[type='checkbox']:checked::after {
 input[type='checkbox']:focus,
 a:focus {
   outline: 0;
-  /* outline-color: var(--blue); */
-  border: 2px solid var(--blue);
+  box-shadow: 0px 0px 0px 2px var(--blue);
+  transition: 0.25s;
 }
 
 .terms-agreements {
   font-weight: 500;
-
   font-size: var(--fs-secondary);
 }
 
@@ -325,7 +333,7 @@ a:focus {
   }
 
   .singUp-btn {
-    width: 30%;
+    width: 25%;
   }
 
   .footer {
