@@ -3,13 +3,15 @@ const app = {
   email: document.getElementById('mail'),
   userName: document.getElementById('userName'),
   password: document.getElementById('password'),
+  pswText: document.querySelector('.psw-text'),
+  pswIcon: document.querySelector('.psw-eye'),
 
   init() {
     app.addEventListener();
   },
 
   addEventListener() {
-    const { form, email, userName, password } = app;
+    const { form, email, userName, password, pswText } = app;
 
     /* email */
     email.addEventListener('change', app.test);
@@ -40,6 +42,8 @@ const app = {
     );
 
     form.addEventListener('submit', app.validate);
+
+    pswText.addEventListener('click', this.passwordVisible);
   },
 
   validate(e) {
@@ -120,6 +124,20 @@ const app = {
       field.value.length >= 8
         ? app.match('min-chars')
         : app.noMatch('min-chars');
+    }
+  },
+
+  passwordVisible() {
+    let { password, pswIcon, pswText } = app;
+
+    if (password.type === 'text') {
+      password.type = 'password';
+      pswIcon.textContent = 'visibility';
+      pswText.textContent = 'Show';
+    } else {
+      password.type = 'text';
+      pswIcon.textContent = 'visibility_off';
+      pswText.textContent = 'Hide';
     }
   },
 
